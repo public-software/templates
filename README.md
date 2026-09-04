@@ -13,20 +13,40 @@ Planned components: template-lib · template-app · template-service · template
 
 ## In 30 seconds
 
-_A runnable example goes here the day the first crate lands._
+This repository holds the skeletons every Public Software repository and crate is stamped from. They are plain files with placeholders, not a template engine: `pub new` renders them, and until the bootstrap kit is retired its `lib/common.sh` (`render`, `render_crate`) is the reference implementation of the rendering.
 
-## What it does
+```
+repo/             every new repository: Cargo workspace, CATALOG.toml, AGENTS.md + CLAUDE.md, PROVENANCE.md,
+                  deny.toml, the cargo-vet store, CODEOWNERS, ci.yml (pinned to the .github release), dependabot.yml
+crate/lib/        a library crate
+crate/app/        a command: the binary is the component name
+crate/service/    a daemon: the binary is pubd-<component>, the logic a library with the public:core health check
+crate/plugin/     a public:core component (cdylib + rlib), hosted by plugin-runtime
+crate/spec/       a specification: SPEC.md as the crate docs plus a typed conformance case table
+```
 
-## What it does not do (yet)
+```sh
+pub new lib <name>         # crates/pub-<repo>-<name>/ in the current repository, plus its CATALOG.toml entry
+pub new service <name>     # the daemon pubd-<name>
+```
 
-## Status
+## Placeholders
 
-| Ledger entry | Readiness | Next |
+A placeholder is a name between double braces, `{{NAME}}`, replaced verbatim; a file that is not text (images, fonts) is copied byte for byte. Nothing else is interpreted, so `${{NAME}}` in a workflow survives untouched.
+
+| Set | Names | Source |
 |---|---|---|
+| organization | `ORG`, `ORG_DISPLAY_NAME`, `ORG_DESCRIPTION`, `ORG_URL`, `CLI`, `CRATE_PREFIX`, `DAEMON_PREFIX`, `WIT_NAMESPACE`, `DOMAIN`, `DOCS_REPO`, `FIRST_TRAIN`, `LICENSE_SPDX`, `MSRV`, `EDITION`, `WORKFLOWS_VERSION`, `CATALOG_VERSION` | `config/org.env` of the kit; `pub` reads the same values from the catalog and its own configuration |
+| repository (`repo/`) | `REPO`, `RING`, `LAYERS` (space separated), `LAYERS_TOML` (a TOML array), `WAVE`, `PURPOSE`, `CONTENTS`, `MAINT_TEAM` (`maint-<repo>`), `WORKFLOWS_REF` (`<sha> # vX.Y.Z` of the `.github` release `ci.yml` pins) | the repository's catalog entry |
+| crate (`crate/<kind>/`) | `KIND`, `REPO`, `COMPONENT`, `COMPONENT_IDENT`, `CRATE` (`<CRATE_PREFIX>-<repo>-<component>`), `CRATE_IDENT` (`CRATE` with `-` as `_`, for Rust paths) | the `pub new <kind> <component>` invocation |
 
-## How it fits the suite
+`crate/<kind>/` renders into `crates/<CRATE>/` of a repository; every kind builds with no third-party dependency, carries a test, forbids `unsafe` and documents every public item, so the repository's gates (`suite / test`, `deny`, `vet`, `audit`, `mutants`) are green the moment it lands.
 
-Implements: _none yet_ · Requires: _none yet_ (see `CATALOG.toml`)
+## Changing a skeleton
+
+1. Edit the file under `repo/` or `crate/<kind>/` in a pull request. A change to `repo/` reaches new repositories only; existing ones pick it up through `pub check` (the files it regenerates, AGENTS.md first) or a maintainer's pull request.
+2. CI renders every kind into a fresh workspace and runs the same gates a repository runs; a skeleton that does not build does not merge.
+3. Until the bootstrap kit is retired, `templates/skeleton/` in the kit is the same tree: its step 05 mirrors it here byte for byte and pushes when a file differs, so edit it there and let the kit push, or edit here and port the change back.
 
 ## Contributing
 
