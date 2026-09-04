@@ -47,6 +47,7 @@ A placeholder is a name between double braces, `{{NAME}}`, replaced verbatim; a 
 1. Edit the file under `repo/` or `crate/<kind>/` in a pull request. A change to `repo/` reaches new repositories only; existing ones pick it up through `pub check` (the files it regenerates, AGENTS.md first) or a maintainer's pull request.
 2. CI renders every kind into a fresh workspace and runs the same gates a repository runs; a skeleton that does not build does not merge.
 3. Until the bootstrap kit is retired, `templates/skeleton/` in the kit is the same tree: its step 05 mirrors it here byte for byte and pushes when a file differs, so edit it there and let the kit push, or edit here and port the change back.
+4. A pull request here goes through the same gates as any repository: the rendered kinds must build, and the agent review (`suite / policy`) reads the change against the rubric.
 
 ## Contributing
 
