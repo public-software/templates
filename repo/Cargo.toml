@@ -1,0 +1,19 @@
+[workspace]
+resolver = "3"
+members = ["crates/*"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "{{EDITION}}"
+rust-version = "{{MSRV}}"
+license = "{{LICENSE_SPDX}}"
+repository = "https://github.com/{{ORG}}/{{REPO}}"
+homepage = "{{ORG_URL}}/{{REPO}}"
+authors = ["{{ORG_DISPLAY_NAME}} contributors"]
+
+[workspace.lints.rust]
+unsafe_op_in_unsafe_fn = "deny"
+missing_docs = "warn"
+
+[workspace.lints.clippy]
+all = "warn"

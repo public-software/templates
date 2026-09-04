@@ -1,0 +1,24 @@
+# Machine-readable entry for this repository. Aggregated into {{ORG}}/catalog.
+# Edit here; `{{CLI}} catalog sync` propagates description, topics and custom properties to GitHub.
+
+[repo]
+name        = "{{REPO}}"
+ring        = "{{RING}}"          # spine | platform | system | domain | standards
+layers      = {{LAYERS_TOML}}
+wave        = {{WAVE}}
+tier        = "incubating"        # incubating | stable | core | archived
+maintainers = ["{{MAINT_TEAM}}"]
+summary     = "{{PURPOSE}}"
+
+# One [[component]] per crate, app or service this workspace publishes.
+# planned: {{CONTENTS}}
+#
+# [[component]]
+# crate     = "{{CRATE_PREFIX}}-{{REPO}}-example"
+# kind      = "lib"                # lib | app | service | plugin | spec
+# ledger    = "<ledger entry name>"
+# readiness = "none"               # shipped | partial | seed | none
+# effort    = 3
+# specs     = []
+# provides  = ["{{WIT_NAMESPACE}}:area/iface@1"]
+# requires  = []

@@ -1,0 +1,5 @@
+# Teams, never people.
+*               @{{ORG}}/{{MAINT_TEAM}}
+/interfaces/    @{{ORG}}/ring-platform
+/CATALOG.toml   @{{ORG}}/core
+/PROVENANCE.md  @{{ORG}}/core

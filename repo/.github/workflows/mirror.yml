@@ -1,0 +1,14 @@
+name: mirror
+on:
+  push:
+  workflow_dispatch:
+permissions:
+  contents: read   # the mirror job pushes to the forge, never back to GitHub
+jobs:
+  mirror:
+    if: ${{ vars.FORGE_MIRROR_URL != '' }}
+    uses: {{ORG}}/.github/.github/workflows/mirror.yml@{{WORKFLOWS_REF}}
+    with:
+      forge_url: ${{ vars.FORGE_MIRROR_URL }}
+    secrets:
+      FORGE_MIRROR_TOKEN: ${{ secrets.FORGE_MIRROR_TOKEN }}

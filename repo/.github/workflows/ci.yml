@@ -1,0 +1,10 @@
+name: ci
+on:
+  push: { branches: [main, "release/**"] }
+  pull_request:
+  merge_group:
+permissions:
+  contents: read   # the suite only reads the checkout
+jobs:
+  suite:
+    uses: {{ORG}}/.github/.github/workflows/rust.yml@{{WORKFLOWS_REF}}

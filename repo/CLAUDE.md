@@ -1,0 +1,1 @@
+Read @AGENTS.md first: it is this repository's contract for every coding agent, Claude Code included, and nothing else lives here. Write every public document in Simplified Technical English; the rules are in [WRITING.md](https://github.com/{{ORG}}/.github/blob/main/WRITING.md).
