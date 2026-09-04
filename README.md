@@ -55,3 +55,5 @@ A placeholder is a name between double braces, `{{NAME}}`, replaced verbatim; a 
 ## Provenance
 
 See `PROVENANCE.md`.
+
+Probe: the review gate on the Copilot CLI (throwaway pull request, closed without merging).
